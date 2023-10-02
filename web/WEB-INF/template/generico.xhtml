@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html template="/WEB-INF/template/generico.xhtml"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="resources/css/file.css"/>
+        <title>Templete</title>
+    </h:head>
+    <h:body>
+        <div class="card">
+            <h:form>
+                <p:growl id="messages"/>
+
+                <p:menubar>
+                    <p:submenu label="Home" icon="pi pi-home" >                        
+                        <p:menuitem value="Home" icon="pi pi-Home" outcome="homePrincipal.xhtml"/>
+                    </p:submenu>
+
+                    <p:submenu label="Menu Principal" icon="pi pi-prime" >                        
+                        <p:menuitem value="Menu Principal" icon="pi pi-prime" outcome="menuPrincipal.xhtml"/>
+                    </p:submenu>
+
+                    <p:submenu label="Clientes" icon="pi pi-user">
+                        <p:menuitem value="Tabela de Clientes" icon="pi pi-user" outcome="tabelaCliente.xhtml"/>
+                        <p:menuitem value="Cadastrar Cliente" icon="pi pi-pencil" outcome="cadastrarCliente.xhtml"/>
+                    </p:submenu>
+
+                    <p:submenu label="Produtos" icon="pi pi-folder">
+                        <p:menuitem value="Tabela de Produtos" icon="pi pi-user" outcome="tabelaProduto.xhtml"/>
+                        <p:menuitem value="Cadastrar Produto" icon="pi pi-pencil" outcome="cadastrarProduto.xhtml"/>
+                    </p:submenu>
+
+                    <p:submenu label="Vendas" icon="pi pi-folder">
+                        <p:menuitem value="Tabela de Vendas" icon="pi pi-user" outcome="tabelaVenda.xhtml"/>
+                        <p:menuitem value="Cadastrar Venda" icon="pi pi-pencil" outcome="cadastrarVenda.xhtml"/>
+                    </p:submenu>
+
+                </p:menubar>
+            </h:form>
+        </div>
+        <br/>
+        <ui:insert name="corpo"/><!-- comment -->
+
+
+
+    </h:body>
+</html>

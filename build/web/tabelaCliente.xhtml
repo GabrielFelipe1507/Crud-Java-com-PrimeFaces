@@ -1,0 +1,65 @@
+<ui:composition template="/WEB-INF/template/generico.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+        <h:form id="form">
+
+            <p:commandButton value="Novo Cliente" action="cadastrarCliente.xhtml" />
+            <p:spacer width="10" />
+            <p:commandButton value="Relatório" action="tabelaCliente.xhtml" style="background-color: red"/>
+            <p:spacer width="10" />
+            <p:commandButton value="Voltar" action="menuPrincipal.xhtml" style="background-color: red"/>
+
+
+            <p:messages></p:messages> 
+
+            <p:dataTable value="#{clienteBean.listaClientes}" 
+                         var="c" 
+                         id="tabela" 
+                         paginator="true" 
+                         rows="5"
+                         >
+
+                <p:column headerText="Id" width="30" style="background-color: #2922ff; color: #ffffff;">
+                    <p:outputLabel value="#{c.id}"/>
+                </p:column>
+                <p:column headerText="Nome" width="100" style="background-color: #2922ff; color: #ffffff;">
+                    <p:outputLabel value="#{c.nomecliente}"/>
+                </p:column>
+                <p:column headerText="Endereço" width="100" style="background-color: #2922ff; color: #ffffff;">
+                    <p:outputLabel value="#{c.endereco}" />
+                </p:column>
+                <p:column headerText="Cidade" width="auto" style="background-color: #2922ff; color: #ffffff;">
+                    <p:outputLabel value="#{c.cidade}" />
+                </p:column>
+                <p:column headerText="UF" width="30" style="background-color: #2922ff; color: #ffffff;">
+                    <p:outputLabel value="#{c.uf}" />
+                </p:column>
+                <p:column headerText="CEP" width="auto" style="background-color: #2922ff; color: #ffffff;">
+                    <p:outputLabel value="#{c.cep}" />
+                </p:column>
+                <p:column headerText="Email" width="auto" style="background-color: #2922ff; color: #ffffff;">
+                    <p:outputLabel value="#{c.email}"/>
+                </p:column>
+
+                <p:column headerText="Opções" width="auto" style="background-color: #2922ff; color: #ffffff;">
+                    <p:panelGrid columns="2">
+
+                        <p:commandButton value="Editar" action="#{clienteBean.editar()}" update="@form" process="@this">
+                            <f:setPropertyActionListener value="#{c}" target="#{clienteBean.cliente}"/>
+                        </p:commandButton>
+                        <p:commandButton value="Excluir" action="#{clienteBean.excluir()}" update="@form" process="@this"
+                                         style="background-color: red">
+                            <f:setPropertyActionListener value="#{c}" target="#{clienteBean.cliente}"/>
+                        </p:commandButton>                        
+
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>  

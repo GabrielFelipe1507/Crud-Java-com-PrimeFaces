@@ -1,0 +1,119 @@
+<ui:composition template="/WEB-INF/template/generico.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h1>Cadastro de Vendas</h1>
+
+    <ui:define name="corpo">
+        <h:form id="form">
+
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+            <br/>
+            <p:panelGrid columns="2">
+                <p:panelGrid columns="1">
+                    <p:outputLabel value="FORMULÁRIO"/>  
+                    <p:outputLabel value="Data da Venda"/>
+                    <p:datePicker size="30" value="#{vendaBean.venda.datavenda}" 
+                                  required="true"
+                                  requiredMessage="Selecione uma Data"
+                                  label="Data da Venda"/>
+
+                    <p:outputLabel value="Valor Total da Venda"/>
+                    <p:outputLabel value="#{vendaBean.total}"/>
+
+                    <p:outputLabel value="Selecionar Cliente"/>
+                    <p:selectOneMenu id="cliente" value="#{vendaBean.venda.cliente}" required="true"
+                                     requiredMessage="Selecione um Cliente"
+                                     converter="clienteConverter">
+                        <f:selectItems value="#{clienteBean.listaClientes}" var="cliente" itemLabel="#{cliente.nomecliente}" 
+                                       itemValue="#{cliente}"/>
+                    </p:selectOneMenu>
+
+
+                    <p:panelGrid columns="3">
+                        <p:linkButton outcome="/tabelaVenda.xhtml" value="Voltar" style="background-color: red"/>
+
+                        <p:commandButton value="Limpar Produtos" style="background-color: #e5e619" 
+                                         action="#{vendaBean.limparProdutos()}" update="form"/>
+
+                        <p:commandButton value="Cadastrar" action="#{vendaBean.adicionar()}"/>
+
+                    </p:panelGrid>
+
+                </p:panelGrid>
+
+                <p:panelGrid columns="1">
+                    <p:outputLabel value="Produto(s) Selecionado(s)"/>
+
+                    <p:dataTable value="#{vendaBean.itensVenda}" 
+                                 var="iv" 
+                                 id="tabela2" 
+                                 paginator="true" 
+                                 rows="5"                             
+                                 >
+
+                        <p:column headerText="Id" width="3%" style="background-color: cadetblue; color: #ffffff;">
+                            <p:outputLabel value="#{iv.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Nome" width="20px" style="background-color: cadetblue; color: #ffffff;">
+                            <p:outputLabel value="#{iv.produto.nomeproduto}"/>
+                        </p:column>
+
+                        <p:column headerText="Quantidade" width="10px" style="background-color: cadetblue; color: #ffffff;">
+                            <p:outputLabel value="#{iv.qtde}" />
+                        </p:column>
+
+                        <p:column headerText="Preço" width="20px" style="background-color: cadetblue; color: #ffffff;">
+                            <p:outputLabel value="#{iv.preco}"/>
+                        </p:column>
+
+                    </p:dataTable>    
+                </p:panelGrid>
+
+            </p:panelGrid>
+
+            <p:panelGrid columns="1">
+                <p:dataTable value="#{produtoBean.listaProdutos}" 
+                             var="iv" 
+                             id="tabela" 
+                             paginator="true" 
+                             rows="5"
+                             >
+                    <p:column headerText="ID da VENDA" width="150" style="background-color: #2922ff; color: #ffffff;">
+                        <p:outputLabel value="#{iv.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome do Produto" width="150" style="background-color: #2922ff; color: #ffffff;">
+                        <p:outputLabel value="#{iv.nomeproduto}"/>
+                    </p:column>
+
+                    <p:column headerText="Quantidade" width="190" style="background-color: #2922ff; color: #ffffff;">
+                        <p:outputLabel value="#{iv.qtde}"/>
+                    </p:column>
+
+                    <p:column headerText="Preço" width="190" style="background-color: #2922ff; color: #ffffff;">
+                        <p:outputLabel value="#{iv.preco}" />
+                    </p:column>   
+
+                    <p:column headerText="Opções" width="auto" style="background-color: #2922ff; color: #ffffff;">
+                        <p:panelGrid columns="2">
+
+                            <p:commandButton value="Selecionar Produto" action="#{vendaBean.adicionarNaListaItensVenda()}" update="@form" process="@this">
+                                <f:setPropertyActionListener value="#{iv}" target="#{vendaBean.produtoSelecionado}"/>
+                            </p:commandButton>
+
+                        </p:panelGrid>
+                    </p:column>
+                </p:dataTable>
+
+            </p:panelGrid>
+
+        </h:form>
+    </ui:define>
+</ui:composition>
